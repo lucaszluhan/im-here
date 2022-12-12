@@ -1,27 +1,28 @@
-import { FlatList, ScrollView, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import { useState } from 'react'
+import { Alert, FlatList, ScrollView, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import { Participant } from '../../components/Participant'
 import { styles } from './styles'
 
 export default function Home() {
-  const participants = [
-    'Lucas',
-    'Clau',
-    'Lais',
-    'Mateus',
-    'Gabriel',
-    'Rodrigo',
-    'Diego',
-    'Maura',
-    'Poliana',
-    'Bruna',
-    'Bruno',
-  ]
+  const [participants, setParticipants] = useState(['Lucas'])
 
   function handleParticipantAdd() {
+    setParticipants(prevState => [...prevState, 'Mateus'])
+
     console.log('Voce clicou no botao de add')
   }
 
   function handleParticipantRemove(name: string) {
+    Alert.alert('Remover Participante', `Voce deseja remover ${name}?`, [
+      {
+        text: 'Sim',
+        onPress: () => Alert.alert('Deletado', 'Participante removido.'),
+      },
+      {
+        text: 'Não',
+        style: 'cancel',
+      },
+    ])
     console.log(`Voce clicou para remover ${name}`)
   }
 
