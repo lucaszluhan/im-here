@@ -7,6 +7,10 @@ export default function Home() {
     console.log('Voce clicou no botao de add')
   }
 
+  function handleParticipantRemove(name: string) {
+    console.log(`Voce clicou para remover ${name}`)
+  }
+
   return (
     <View style={styles.container}>
       <Text style={styles.name}>Zluhan's Party</Text>
@@ -22,9 +26,7 @@ export default function Home() {
           <Text style={styles.buttontext}>+</Text>
         </TouchableOpacity>
       </View>
-      <Participant />
-      <Participant />
-      <Participant />
+      <Participant name='Lucas' onRemove={() => handleParticipantRemove('Lucas')} />
     </View>
   )
 }
