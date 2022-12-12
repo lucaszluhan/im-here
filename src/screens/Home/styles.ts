@@ -46,4 +46,8 @@ export const styles = StyleSheet.create({
     fontSize: 24,
     padding: 10,
   },
+  participants: {
+    width: '100%',
+    maxHeight: 500,
+  },
 })
