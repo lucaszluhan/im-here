@@ -4,11 +4,15 @@ import { Participant } from '../../components/Participant'
 import { styles } from './styles'
 
 export default function Home() {
-  const [participants, setParticipants] = useState(['Lucas'])
+  const [participants, setParticipants] = useState<string[]>(['Lucas'])
+  const [participantName, setParticipantName] = useState('')
 
   function handleParticipantAdd() {
-    setParticipants(prevState => [...prevState, 'Mateus'])
-
+    if (participants.includes(participantName)) {
+      return Alert.alert('Já existe!', 'Participante já foi cadastrado.')
+    }
+    setParticipants(prevState => [...prevState, participantName])
+    setParticipantName('')
     console.log('Voce clicou no botao de add')
   }
 
@@ -16,7 +20,8 @@ export default function Home() {
     Alert.alert('Remover Participante', `Voce deseja remover ${name}?`, [
       {
         text: 'Sim',
-        onPress: () => Alert.alert('Deletado', 'Participante removido.'),
+        onPress: () =>
+          setParticipants(prevState => prevState.filter(participant => participant !== name)),
       },
       {
         text: 'Não',
@@ -26,15 +31,15 @@ export default function Home() {
     console.log(`Voce clicou para remover ${name}`)
   }
 
-  function renderParticipants() {
-    return participants.map(participant => (
-      <Participant
-        key={participant}
-        name={participant}
-        onRemove={() => handleParticipantRemove(participant)}
-      />
-    ))
-  }
+  // function renderParticipants() {
+  //   return participants.map(participant => (
+  //     <Participant
+  //       key={participant}
+  //       name={participant}
+  //       onRemove={() => handleParticipantRemove(participant)}
+  //     />
+  //   ))
+  // }
 
   return (
     <View style={styles.container}>
@@ -45,18 +50,20 @@ export default function Home() {
           style={styles.input}
           placeholder='Digite o nome do participante'
           placeholderTextColor='#000'
+          onChangeText={setParticipantName}
+          value={participantName}
         />
         <TouchableOpacity style={styles.button} onPress={handleParticipantAdd}>
           <Text style={styles.buttontext}>+</Text>
         </TouchableOpacity>
       </View>
-      <ScrollView showsVerticalScrollIndicator={false} style={styles.participants}>
+      {/* <ScrollView showsVerticalScrollIndicator={false} style={styles.participants}>
         {renderParticipants()}
-      </ScrollView>
+      </ScrollView> */}
       <FlatList
         showsVerticalScrollIndicator={false}
         style={styles.participants}
-        data={[]}
+        data={participants}
         keyExtractor={item => item}
         renderItem={({ item }) => (
           <Participant key={item} name={item} onRemove={() => handleParticipantRemove(item)} />
