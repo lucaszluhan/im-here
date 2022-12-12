@@ -48,6 +48,12 @@ export const styles = StyleSheet.create({
   },
   participants: {
     width: '100%',
-    maxHeight: 500,
+    maxHeight: 200,
+    marginBottom: 30,
+  },
+  listEmptyText: {
+    color: '#fff',
+    fontSize: 18,
+    textAlign: 'center',
   },
 })
